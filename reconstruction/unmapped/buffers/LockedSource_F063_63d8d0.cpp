@@ -6,6 +6,8 @@
 // data, capacity, size, array, owner, count, sinks, pendingRegisters, pendingUnregisters, lock, notifying, ProcessEvent: GUESS(low)
 // GetCurrentThreadId: OBSERVED
 // SPDX-License-Identifier: MIT (CommonLibSSE-NG declarations, Copyright (c) 2018 Ryan-rsm-McKenzie; full text: licenses/CommonLibSSE-NG.txt)
+// Code origin: original; reconstructed from the pinned image listing and community declarations
+// Adapted bodies: none
 // 0x63d8d0 p117_63d8d0::LockedSource_F063_63d8d0::Add
 #include "LockedSource_F063_63d8d0.h"
 namespace p117_63d8d0 {
