@@ -4,7 +4,9 @@
 // 0xfaa2d0 NiPSysColorModifier::LoadBinary
 // 0xfaa300 NiPSysColorModifier::LinkObject
 // 0xfaa390 NiPSysColorModifier::SaveBinary
-// Adapted bodies: none
+// Adapted bodies: the FNV body named by the Sibling source line above.
+// Sibling source: momusdigital/fnv_decomp@91e1b6e src/gamebryo2.2/corelibs/niparticle/nipsyscolormodifier.cpp
+// LoadBinary: SIBLING(momusdigital/fnv_decomp@91e1b6e, no-licence)
 #include "NiPSysColorModifier.h"
 
 void NiPSysColorModifier::LoadBinary(NiStream& stream)
