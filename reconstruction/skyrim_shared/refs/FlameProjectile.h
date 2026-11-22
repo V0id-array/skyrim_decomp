@@ -1,7 +1,9 @@
 // Source exposure: mixed (community headers and pinned-image analysis).
+// 0x7eb430 compared function
 // Drafted by gpt-6.1-sol, Engineer p105 box3. Adapted bodies: none.
 // SPDX-License-Identifier: MIT (CommonLibSSE-NG declarations, Copyright (c) 2018 Ryan-rsm-McKenzie; full text: licenses/CommonLibSSE-NG.txt)
 // FlameProjectile: COMMUNITY(CharmedBaryon/CommonLibSSE-NG@b93280e, MIT) EXE_RTTI
+// FlameProjectile::Handle3DLoaded: COMMUNITY(CharmedBaryon/CommonLibSSE-NG@b93280e, MIT)
 #pragma once
 #include <cstdint>
 #include <cstddef>
@@ -43,13 +45,14 @@ public:
  std::uint64_t unk180,unk188;
  float power,speedMult,range,livingTime,weaponDamage,transparency,explosionTimer;
  std::uint32_t unk1AC; float unk1B0,unk1B4; void* weaponSource; void* ammoSource;
- float distanceMoved; std::uint32_t unk1CC; float scale; std::uint32_t flags;
+ float distanceMoved; std::uint32_t unk1CC; float scale; volatile std::uint32_t flags;
  bool unk1D8,unk1D9;
 };
 static_assert(sizeof(Projectile)==0x1E0,"AE projectile size");
 class FlameProjectile : public Projectile {
 public:
  FlameProjectile(); virtual ~FlameProjectile(); virtual std::uint8_t Slot164() const;
+ void Handle3DLoaded();
  void LoadGame(BGSLoadFormBuffer*); void SaveGame(BGSSaveFormBuffer*);
  union { void* runtimeTimers; struct { std::uint32_t expirationTimer,coneAngle; } timers; };
 };

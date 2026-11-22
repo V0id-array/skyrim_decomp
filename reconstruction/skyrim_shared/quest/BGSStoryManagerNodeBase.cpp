@@ -1,8 +1,10 @@
-// Source exposure: mixed. Drafted by claude-sonnet-5-5 from local instruction listings of the
-// pinned image, with names from CharmedBaryon/CommonLibSSE-NG b93280e (MIT).
-// Bodies adapted from community sources: none; tools/check_origin.py reports none above its threshold.
-// 0x1c8520 BGSStoryManagerNodeBase::QConditions
-// 0x5360f0 BGSStoryManagerNodeBase::InitializeData
+// Source exposure: mixed (names from community headers; bodies from the pinned image listing).
+// 0x1c7260 compared function
+// Code origin: original; the listing of the pinned image and community declarations only
+// SPDX-License-Identifier: CC0-1.0
+// BGSStoryManagerNodeBase::~BGSStoryManagerNodeBase: COMMUNITY(CharmedBaryon/CommonLibSSE-NG@b93280e, MIT)
+// Adapted bodies: none
+// RVA 0x1c7260, 93 bytes
 #include "BGSStoryManagerNodeBase.h"
 
 // TestBit: GUESS(low); a flag-word bit test by bit index, taking the word by value.
@@ -37,4 +39,14 @@ void BGSStoryManagerNodeBase::InitializeData()
     maxQuests       = 0;
     flags.nodeFlags = 0;
     flags.questFags = 0;
+}
+
+// Defined so the compiler emits the vftable and, beside it, the scalar deleting destructor.
+BGSStoryManagerNodeBase::BGSStoryManagerNodeBase()
+{
+}
+
+BGSStoryManagerNodeBase::~BGSStoryManagerNodeBase()
+{
+    ClearData();
 }

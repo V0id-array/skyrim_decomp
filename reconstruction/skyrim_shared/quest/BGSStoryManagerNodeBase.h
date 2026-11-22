@@ -1,4 +1,5 @@
 // Source exposure: mixed (binary-analysis of the pinned image, community-headers).
+// 0x1c7260 compared function
 // SPDX-License-Identifier: MIT (CommonLibSSE-NG declarations, Copyright (c) 2018 Ryan-rsm-McKenzie; full text: licenses/CommonLibSSE-NG.txt)
 // BGSStoryManagerNodeBase, ::Flags, ::parent, ::previousSibling, ::maxQuests, ::flags, ::conditions, ::QConditions, ::InitializeData: COMMUNITY(CharmedBaryon/CommonLibSSE-NG@b93280e, MIT)
 // BGSStoryManagerNodeBase::Flags::nodeFlags, ::questFags: COMMUNITY(CharmedBaryon/CommonLibSSE-NG@b93280e, MIT); plain 16-bit integers here, NG wraps them in stl::enumeration
@@ -64,7 +65,8 @@ public:
     ~BGSStoryManagerNodeBase() override;  // compared: 0x1c7260 (scalar deleting destructor)
 
     void          InitializeData() override;  // 04
-    void          ClearData() override;       // compared: 0x536120
+    // noinline: the deleting destructor calls the out-of-line ClearData
+    __declspec(noinline) void ClearData() override;  // compared: 0x536120
     TESCondition* QConditions() override;     // 3D
 
     // members
