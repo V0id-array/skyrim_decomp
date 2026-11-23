@@ -1,11 +1,24 @@
+// Source exposure: mixed (community headers; the pinned image listing).
+// 0x1dd490 compared function
+// 0x1dd470 compared function
+// 0x1dd450 compared function
+// 0x1dd430 compared function
+// Code origin: original; the listing and community declarations only
+// SPDX-License-Identifier: CC0-1.0
+// 0x1dd980 TESActorBaseData::Function1dd980
+// Adapted bodies: none
+// Source exposure: mixed (community headers; the pinned image listing).
+// Code origin: original; the listing and community declarations only
+// SPDX-License-Identifier: CC0-1.0
+// 0x1dcb50 TESActorBaseData::Function1dcb50
+// Adapted bodies: none
+// Source exposure: mixed (community headers; the pinned image listing).
+// Code origin: original; the listing and community declarations only
+// SPDX-License-Identifier: CC0-1.0
+// 0x1dcb30 TESActorBaseData::Function1dcb30
+// Adapted bodies: none
 // Source exposure: mixed. Drafted by claude-sonnet-5-5 from the local instruction listings of the
 // pinned image, with the class layout from the header beside this file. Names are from CharmedBaryon/CommonLibSSE-NG b93280e (MIT) unless labelled in the header.
-// 0x1de5e0 TESActorBaseData::Unk_07
-// 0x1de5f0 TESActorBaseData::GetVoiceType
-// 0x1de5c0 TESActorBaseData::GetInvulnerable
-// 0x1de5d0 TESActorBaseData::GetIsGhost
-// 0x1dc630 TESActorBaseData::ClearDataComponent
-// 0x1dc5e0 TESActorBaseData::InitializeDataComponent
 #include "TESActorBaseData.h"
 
 // gDefaultBaseDisposition: GUESS(low); a byte global at 0x20780f8 copied into baseDisposition
@@ -18,6 +31,21 @@ namespace
     {
         return ((a_flags >> a_bit) & 1) != 0;
     }
+}
+
+void TESActorBaseData::Function1dcb30(void* a_baseTemplateForm)
+{
+    baseTemplateForm = a_baseTemplateForm;
+}
+
+void TESActorBaseData::Function1dcb50(std::uint16_t a_templateUseFlags)
+{
+    actorData.templateUseFlags = a_templateUseFlags;
+}
+
+void TESActorBaseData::Function1dd980(BGSVoiceType* a_voiceType)
+{
+    voiceType = a_voiceType;
 }
 
 bool TESActorBaseData::GetIsGhost() const
@@ -62,6 +90,50 @@ void TESActorBaseData::InitializeDataComponent()
     actorData.templateUseFlags = 0;
     actorData.bleedoutOverride = 0;
     unk38 = 0;
+}
+
+void SmallBase430::Function1dd430(std::uint16_t a_value)
+{
+    field10 = a_value;
+    auto* owner = reinterpret_cast<char*>(this) - 0x30;
+    if (owner != nullptr) {
+        using Fn = void (*)(void*, int);
+        auto** vt = *reinterpret_cast<void***>(owner);
+        reinterpret_cast<Fn>(vt[10])(owner, 2);
+    }
+}
+
+void SmallBase430::Function1dd450(std::uint16_t a_value)
+{
+    field12 = a_value;
+    auto* owner = reinterpret_cast<char*>(this) - 0x30;
+    if (owner != nullptr) {
+        using Fn = void (*)(void*, int);
+        auto** vt = *reinterpret_cast<void***>(owner);
+        reinterpret_cast<Fn>(vt[10])(owner, 2);
+    }
+}
+
+void SmallBase430::Function1dd470(std::uint16_t a_value)
+{
+    field14 = a_value;
+    auto* owner = reinterpret_cast<char*>(this) - 0x30;
+    if (owner != nullptr) {
+        using Fn = void (*)(void*, int);
+        auto** vt = *reinterpret_cast<void***>(owner);
+        reinterpret_cast<Fn>(vt[10])(owner, 2);
+    }
+}
+
+void SmallBase430::Function1dd490(std::uint16_t a_value)
+{
+    field18 = a_value;
+    auto* owner = reinterpret_cast<char*>(this) - 0x30;
+    if (owner != nullptr) {
+        using Fn = void (*)(void*, int);
+        auto** vt = *reinterpret_cast<void***>(owner);
+        reinterpret_cast<Fn>(vt[10])(owner, 2);
+    }
 }
 
 // TESActorBaseData::CopyFromTemplateForms: COMMUNITY(CharmedBaryon/CommonLibSSE-NG@b93280e, MIT)

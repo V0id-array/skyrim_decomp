@@ -1,6 +1,8 @@
 // Source exposure: mixed (names and declarations from community headers; base classes, sizes and
+// 0x329d38 compared function
+// 0x3298d0 compared function
 // SPDX-License-Identifier: MIT (CommonLibSSE-NG declarations, Copyright (c) 2018 Ryan-rsm-McKenzie; full text: licenses/CommonLibSSE-NG.txt)
-// 0x30 of a parent), so they use RawAt; header-gap TESForm for these fields.
+// offset 0x30 of a parent), so they use RawAt; header-gap TESForm for these fields.
 // BGSSoundCategory: COMMUNITY(CharmedBaryon/CommonLibSSE-NG@b93280e, MIT) EXE_RTTI
 // BGSSoundCategory::SetCategoryAttenuation, BGSSoundCategory::SetCategoryFrequency, BGSSoundCategory::Matches: COMMUNITY(meh321/AddressLibraryDatabase@0379cb6, permission)
 // BGSSoundCategory::InitializeData: COMMUNITY(CharmedBaryon/CommonLibSSE-NG@b93280e, MIT)
@@ -38,4 +40,6 @@ public:
     virtual void SetCategoryFrequency(float a_value);  // compared: 0x329970
     virtual void InitializeData();  // compared: 0x329790
     virtual bool Matches(const BSISoundCategory* a_category) const;  // compared: 0x329820
+    // BGSSoundCategory::SetCategoryVolume: CRASHLOGGER_PDB(59818@2026.10.24)
+    virtual void SetCategoryVolume(float a_value);
 };

@@ -1,4 +1,11 @@
 // Source exposure: mixed (binary-analysis of the pinned image, community-headers).
+// 0x1dd980 compared function
+// 0x1dd490 compared function
+// 0x1dd470 compared function
+// 0x1dd450 compared function
+// 0x1dd430 compared function
+// 0x1dcb50 compared function
+// 0x1dcb30 compared function
 // SPDX-License-Identifier: MIT (CommonLibSSE-NG declarations, Copyright (c) 2018 Ryan-rsm-McKenzie; full text: licenses/CommonLibSSE-NG.txt)
 // BaseFormComponent: STANDIN EXE_RTTI COMMUNITY(CharmedBaryon/CommonLibSSE-NG@b93280e, MIT); only class names, base chain,
 // slot order and sizes are claimed.
@@ -92,6 +99,13 @@ public:
 	// TESActorBaseData::GetVoiceType: COMMUNITY(CharmedBaryon/CommonLibSSE-NG@b93280e, MIT); slot 8, target 0x1de5f0
 	virtual BGSVoiceType* GetVoiceType();  // 08
 
+	// TESActorBaseData::Function1dcb30: GUESS(low); setter for baseTemplateForm, target 0x1dcb30
+	void Function1dcb30(void* a_baseTemplateForm);
+	// TESActorBaseData::Function1dcb50: GUESS(low); setter for templateUseFlags, target 0x1dcb50
+	void Function1dcb50(std::uint16_t a_templateUseFlags);
+	// TESActorBaseData::Function1dd980: GUESS(low); setter for voiceType, target 0x1dd980
+	void Function1dd980(BGSVoiceType* a_voiceType);
+
 		// actorData: COMMUNITY(CharmedBaryon/CommonLibSSE-NG@b93280e, MIT)
 	ACTOR_BASE_DATA actorData;  // 08
 	// deathItem: COMMUNITY(CharmedBaryon/CommonLibSSE-NG@b93280e, MIT)
@@ -108,3 +122,20 @@ public:
 	FactionRankArray factions;  // 40
 };
 static_assert(sizeof(TESActorBaseData) == 0x58, "layout");
+
+// SmallBase430: GUESS(low); a small embedded component whose setters notify the owner.
+class SmallBase430
+{
+public:
+	void Function1dd430(std::uint16_t a_value);
+	void Function1dd450(std::uint16_t a_value);
+	void Function1dd470(std::uint16_t a_value);
+	void Function1dd490(std::uint16_t a_value);
+private:
+	std::uint8_t pad00[0x10];
+	std::uint16_t field10;
+	std::uint16_t field12;
+	std::uint16_t field14;
+	std::uint8_t pad16[2];
+	std::uint16_t field18;
+};
