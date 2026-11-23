@@ -1,4 +1,5 @@
 // Source exposure: mixed (binary-analysis of the pinned image, community-headers).
+// 0x31c770 compared function
 // SPDX-License-Identifier: MIT (CommonLibSSE-NG declarations, Copyright (c) 2018 Ryan-rsm-McKenzie; full text: licenses/CommonLibSSE-NG.txt)
 // Bodies adapted from community sources: none; tools/check_origin.py reports none above its threshold at the pinned checkouts.
 // BGSFootstep, BGSFootstep::~BGSFootstep, BGSFootstep::tag, BGSFootstep::impactSet: COMMUNITY(CharmedBaryon/CommonLibSSE-NG@b93280e, MIT)
@@ -41,3 +42,34 @@ public:
     BGSImpactDataSet* impactSet;  // 28
 };
 static_assert(sizeof(BGSFootstep) == 0x30, "layout");
+
+// Stand-ins for the local built by the compared body: GUESS(low). The base has out-of-line
+// constructor and destructor; the derived inline constructor sets the vftable and the form type.
+class FootstepLocalBase
+{
+public:
+    FootstepLocalBase();
+    virtual ~FootstepLocalBase() noexcept;
+    std::uint8_t pad08[0x12];  // 08
+    std::uint8_t formType;     // 1A
+    std::uint8_t pad1B[0x5];   // 1B
+};
+static_assert(sizeof(FootstepLocalBase) == 0x20, "local base size");
+class FootstepLocal : public FootstepLocalBase
+{
+public:
+    FootstepLocal();
+};
+// GUESS(low): the zeroed 16-byte temporary with a single out-of-line destructor.
+class FootstepTempString
+{
+public:
+    ~FootstepTempString() noexcept;
+    std::uint64_t data[2];
+};
+// _mm_storeu_si128: GUESS(low); zero the 16-byte temporary with the SSE unaligned store the listing uses.
+#include <intrin.h>
+inline void ZeroFootstepTemp(FootstepTempString& a_temp)
+{
+    _mm_storeu_si128(reinterpret_cast<__m128i*>(&a_temp), _mm_setzero_si128());
+}

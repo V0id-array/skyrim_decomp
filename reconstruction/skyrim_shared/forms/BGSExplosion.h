@@ -1,4 +1,7 @@
 // Source exposure: mixed (community headers and pinned-image analysis).
+// 0x261310 compared function
+// 0x2612d0 compared function
+// 0x261290 compared function
 // Drafted by gpt-6.1-sol, Engineer p105 box3. Adapted bodies: none.
 // Code origin: original; the listing and community declarations only
 // SPDX-License-Identifier: MIT (CommonLibSSE-NG declarations, Copyright (c) 2018 Ryan-rsm-McKenzie; full text: licenses/CommonLibSSE-NG.txt)
@@ -336,5 +339,10 @@ class BGSPreloadable : public BaseFormComponent { public:  void InitializeDataCo
 class TESImageSpaceModifiableForm : public BaseFormComponent { public:  void InitializeDataComponent() override; void ClearDataComponent() override; void CopyComponent(BaseFormComponent*) override; void* imageSpaceModifier; };
 class TESEnchantableForm : public BaseFormComponent { public:  void InitializeDataComponent() override; void ClearDataComponent() override; void CopyComponent(BaseFormComponent*) override; void* formEnchanting; std::uint16_t castingType,amountofEnchantment; };
 struct BGSExplosionData { void* light; void* sound1; void* sound2; void* impactDataSet; void* impactPlacedObject; void* spawnProjectile; float force,damage,radius,imageSpaceRadius,verticalOffsetMult; std::uint32_t flags,soundLevel; };
-class BGSExplosion : public TESBoundObject, public TESFullName, public TESModel, public TESEnchantableForm, public BGSPreloadable, public TESImageSpaceModifiableForm { public: BGSExplosion(); ~BGSExplosion() override; void InitializeData() override; void UnClone3D(TESObjectREFR* a_ref); float GetRadius() const; float GetImageSpaceRadius() const; BGSExplosionData data; }; static_assert(sizeof(BGSExplosion)==0xE8,"explosion size");
+// BGSExplosion::Function261310: GUESS(low); loads the sound level and tail-calls GetSoundLevelValue
+class BGSExplosion : public TESBoundObject, public TESFullName, public TESModel, public TESEnchantableForm, public BGSPreloadable, public TESImageSpaceModifiableForm { public: BGSExplosion(); ~BGSExplosion() override; void InitializeData() override; void UnClone3D(TESObjectREFR* a_ref); int Function261310(); float Function261290() const; float Function2612d0() const; BGSExplosionData data; }; static_assert(sizeof(BGSExplosion)==0xE8,"explosion size");
+// GetSoundLevelValue: GUESS(low); RVA 0x41d3f0, consumes the sound level dword.
+int GetSoundLevelValue(std::uint32_t a_soundLevel);
+// gExplosionScale: GUESS(low); a .rdata float the two radius getters multiply by.
+extern const float gExplosionScale;
 

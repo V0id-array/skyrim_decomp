@@ -1,4 +1,18 @@
 // Source exposure: mixed (pinned image listings and community declarations).
+// 0x7270a0 compared function
+// 0x7231e0 compared function
+// 0x720f60 compared function
+// 0x700100 compared function
+// 0x6ffef0 compared function
+// 0x6ff530 compared function
+// 0x6ff500 compared function
+// 0x6fe770 compared function
+// 0x6fe5d0 compared function
+// 0x6f6e10 compared function
+// 0x6f64b0 compared function
+// 0x6f5220 compared function
+// 0x6e99e0 compared function
+// 0x6e97b0 compared function
 // SPDX-License-Identifier: MIT (CommonLibSSE-NG declarations, Copyright (c) 2018 Ryan-rsm-McKenzie; full text: licenses/CommonLibSSE-NG.txt)
 // ActorProcess: EXE_RTTI
 // GetEquippedLeftHand: COMMUNITY(meh321/AddressLibraryDatabase@0379cb6, permission)
@@ -20,27 +34,6 @@
 
 #include <cstdint>
 
-struct ObjectRefHandle
-{
-    ObjectRefHandle& operator=(const ObjectRefHandle& a_rhs)
-    {
-        native_handle = a_rhs.native_handle;
-        return *this;
-    }
-
-    bool operator==(const ObjectRefHandle& a_rhs) const
-    {
-        return native_handle == a_rhs.native_handle;
-    }
-
-    std::uint32_t native_handle;  // 0
-};
-static_assert(sizeof(ObjectRefHandle) == 0x4, "ObjectRefHandle size");
-
-extern const ObjectRefHandle kNullHandle;
-extern float defaultBreathTimer;
-extern float defaultDetectionModifierTimer;
-
 class BSFaceGenAnimationData;
 class BSFaceGenNiNode;
 class NiAVObject;
@@ -49,6 +42,41 @@ namespace MagicSystem
 {
     enum class WardState;
 }
+
+// ProcessState: GUESS(low) STANDIN; word fields written by Function6ffef0.
+class ProcessState;
+// kNullHandle: GUESS(low); global written into the state by Function6fe770.
+extern std::uint32_t kNullHandle;
+// FinalizeState: GUESS(low); helper at RVA 0x71ea00.
+void FinalizeState(ProcessState* a_state);
+
+class ProcessState
+{
+public:
+    std::uint8_t pad00[0x18];  // 00
+    float float18;  // 18
+    std::uint8_t pad1C[0xBC];  // 1C
+    std::uint32_t fieldD8;  // D8
+    std::uint8_t padDC[0x58];  // DC
+    float float134;  // 134
+    std::uint8_t pad138[0x8];  // 138
+    std::uint32_t handle140;  // 140
+    std::uint8_t pad144[0x14];  // 144
+    std::uint8_t flag158;  // 158
+    std::uint8_t pad159[0x23];  // 159
+    std::uint32_t field17C;  // 17C
+    std::uint8_t pad180[0x148];  // 180
+    float float2C8;  // 2C8
+    std::uint64_t qword2D0;  // 2D0
+    std::uint16_t word2D8;  // 2D8
+    std::uint8_t pad2DA[0x4A];  // 2DA
+    float float324;  // 324
+    std::uint8_t pad328[0xD0];  // 328
+    std::int16_t word3F8;  // 3F8
+    std::int16_t word3FA;  // 3FA
+    std::uint8_t pad3FC[0x74];  // 3FC
+    std::uint8_t byte470;  // 470
+};
 
 class ActorProcess
 {
@@ -100,28 +128,36 @@ public:
     void Function728540();
     void Function728560();
     bool Function728580() const;
-    float Function6f5220() const;
-    void Function6f64b0(std::uint16_t a_action, std::uint64_t a_value);
-    ObjectRefHandle& Function6f6de0(ObjectRefHandle& a_handle) const;
-    void Function6f6e10(const ObjectRefHandle& a_handle, bool a_activated);
-    void Function6f6f30(float a_value);
-    bool Function6fe020() const;
-    float Function6fe5d0() const;
-    ObjectRefHandle& Function6ff4b0(ObjectRefHandle& a_handle) const;
-    void Function6ff500(const ObjectRefHandle& a_handle);
-    std::int32_t Function6ffe80(std::int32_t a_index) const;
-    void Function6ffef0();
-    bool Function720f60() const;
-    bool Function7216e0() const;
-    bool HasRunOncePackage() const;
-    ObjectRefHandle& Function726eb0(ObjectRefHandle& a_handle) const;
-    float Function7270a0() const;
-    ObjectRefHandle& Function727eb0(ObjectRefHandle& a_handle) const;
 
     struct ProcessData;
-    struct HighProcessData;
     ProcessData* middleHigh;  // 08
-    HighProcessData* high;  // 10
+
+    // Compared leaf functions (GUESS(low); bodies from the pinned image listings).
+    void Function6e97b0();
+    void Function6e99e0();
+    float Function6f5220() const;
+    void Function6f64b0(std::uint16_t a_value, std::uint64_t a_bits);
+    void Function6f6e10(const std::uint32_t* a_value, bool a_flag);
+    float Function6fe5d0() const;
+    void* Function6ff530();
+    void Function6ffef0();
+    void Function6fe770();
+    void Function6ff500(const std::uint32_t* a_value);
+    float Function700100() const;
+    bool Function720f60() const;
+    bool Function7231e0() const;
+    float Function7270a0() const;
+
+    ProcessState* state;  // 10
     std::uint8_t padding[0xd8];  // 18
-    void* member;
+    void* member;  // F0
+    std::uint8_t padF8[0x1c];  // F8
+    std::uint32_t field114;  // 114
 };
+
+// External callees bound by position in the pinned image (GUESS(low)).
+void External_720580(ActorProcess* a_owner);
+void External_6e0210(void* a_subobject);
+void* External_71e100(ProcessState* a_state);
+// Default float constants (GUESS(low)); the image references these by relocation.
+extern const float kDefaultFloat;
