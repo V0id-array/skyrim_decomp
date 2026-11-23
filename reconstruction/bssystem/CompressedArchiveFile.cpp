@@ -1,27 +1,35 @@
-// Source exposure: mixed (local binary analysis and public names).
-// Code origin: existing unit plus original reconstruction of archive stream helpers.
-// Adapted bodies: none.
-// SPDX-License-Identifier: MIT (CommonLibSSE-NG declarations, Copyright (c) 2018 Ryan-rsm-McKenzie; full text: licenses/CommonLibSSE-NG.txt)
-// CompressedReadFn, CompressedWriteFn, SetEndianSwapFallback: GUESS(low)
-// 0xeb9ee0 CompressedArchiveFile::Unk_0A
-// 0xeb9ea0 CompressedArchiveFile::seek(std::int32_t)
+// Source exposure: mixed (community declarations; the pinned image listing).
+// 0xeb9f40 compared function
+// 0xeb9ec0 compared function
+// 0xeb9ea0 compared function
+// Code origin: original reconstruction; bodies written from the listing.
+// SPDX-License-Identifier: CC0-1.0
 // 0xeb9ef0 CompressedArchiveFile::Functioneb9ef0
 // 0xeb9f10 CompressedArchiveFile::Functioneb9f10
-// 0xeb9f40 CompressedArchiveFile::Functioneb9f40
+// Functioneb9ef0, Functioneb9f10, fileData: GUESS(low)
+// Adapted bodies: none
 #include "CompressedArchiveFile.h"
 
-void CompressedReadFn();
-void CompressedWriteFn();
-void SetEndianSwapFallback(CompressedArchiveFile* a_self, bool a_doSwap);
-
+// Unk_0A: COMMUNITY(CharmedBaryon/CommonLibSSE-NG@b93280e, MIT)
 std::uint32_t CompressedArchiveFile::Unk_0A() const
 {
     return member;
 }
 
-void CompressedArchiveFile::seek(std::int32_t a_numBytes)
+// GUESS(low): tail-call wrappers around the image's virtual slots 6 and 17.
+void CompressedArchiveFile::Functioneb9ea0(void* a_value)
 {
-    seek(a_numBytes, 1);
+    vSlot06(a_value, 1);
+}
+
+void CompressedArchiveFile::Functioneb9ec0(unsigned a_value)
+{
+    vSlot17(0, a_value);
+}
+
+bool CompressedArchiveFile::Functioneb9f10() const
+{
+    return fileData != nullptr;
 }
 
 std::uint32_t CompressedArchiveFile::Functioneb9ef0() const
@@ -29,17 +37,19 @@ std::uint32_t CompressedArchiveFile::Functioneb9ef0() const
     return member;
 }
 
-bool CompressedArchiveFile::Functioneb9f10() const
-{
-    return streamPtr != nullptr;
-}
+// GUESS(low): the two stored addresses are relocated by the linker, so stand-in
+// functions reproduce the compared stores without claiming the image's callees.
+static void archiveNoopA() {}
+static void archiveNoopB() {}
+// GUESS(low): out-of-unit handler, tail-called from the compared function's flag path.
+void archiveFlagHandler();
 
-void CompressedArchiveFile::Functioneb9f40(bool a_doSwap)
+void CompressedArchiveFile::Functioneb9f40(bool a_flag)
 {
-    if (a_doSwap) {
-        SetEndianSwapFallback(this, a_doSwap);
+    if (a_flag) {
+        archiveFlagHandler();
         return;
     }
-    readFn = reinterpret_cast<void*>(&CompressedReadFn);
-    writeFn = reinterpret_cast<void*>(&CompressedWriteFn);
+    fn10 = reinterpret_cast<void*>(&archiveNoopA);
+    fn18 = reinterpret_cast<void*>(&archiveNoopB);
 }

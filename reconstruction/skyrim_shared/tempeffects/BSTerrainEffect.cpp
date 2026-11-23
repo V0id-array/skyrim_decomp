@@ -1,11 +1,27 @@
-// Source exposure: mixed (names and declarations from community headers; the listing of the pinned
-// image).
-// Adapted bodies: none.
-// 0x4b7c40 BSTerrainEffect::GetManagerHandlesSaveLoad
+// Source exposure: mixed (names from community headers; bodies from the pinned image listing).
+// 0x4b8680 compared function
+// Code origin: original; the listing and community declarations only
+// SPDX-License-Identifier: CC0-1.0
+// BSTerrainEffect::Function4b7c50: GUESS(low)
+// 0x4b7c50 BSTerrainEffect::Function4b7c50
+// Adapted bodies: none
 #include "BSTerrainEffect.h"
 
-// Reads the base class flag at 0x24 that the target loads; what the flag means is not verified here.
-bool BSTerrainEffect::GetManagerHandlesSaveLoad() const
+BSTerrainEffect::BSTerrainEffect() : BSTempEffect(nullptr, 0.0f)
 {
-    return initialized;
 }
+
+// Bound by hash: the target's slot-2A body reads the bool at +0x24 from `this`.
+bool TerrainSaveLoadShim(const BSTerrainEffect* a)
+{
+    return *reinterpret_cast<const bool*>(reinterpret_cast<const char*>(a) + 0x24);
+}
+
+std::uint32_t BSTerrainEffect::Function4b7c50(const std::uint32_t* a)
+{
+    if (*a == 0) {
+        *reinterpret_cast<std::uint8_t*>(reinterpret_cast<char*>(this) - 0xC) = 0;
+    }
+    return 0;
+}
+
