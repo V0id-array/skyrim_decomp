@@ -1,3 +1,8 @@
+// Source exposure: mixed (community headers; the pinned image listing).
+// Code origin: original; the pinned image listing and community declarations only.
+// SPDX-License-Identifier: CC0-1.0
+// 0xf99500 NiParticleSystem::Functionf99500
+// Adapted bodies: none
 // Code origin: bodies written for this unit from the listings of the pinned image; names and
 // declarations from CommonLibSSE-NG. No community or sibling body is adapted.
 // Source exposure: mixed (names and declarations from community headers; the listing of the pinned
@@ -9,10 +14,7 @@
 // 0xf99260 NiParticleSystem::RegisterStreamables
 // 0xf992c0 NiParticleSystem::SaveBinary
 // 0xf99390 NiParticleSystem::IsEqual
-// 0xf99a30 NiParticleSystem::UpdateDownwardPass
-// 0xf99aa0 NiParticleSystem::UpdateSelectedDownwardPass
 // 0xf99ba0 NiParticleSystem::SetSelectiveUpdateFlags
-// 0xf9a140 NiParticleSystem::~NiParticleSystem
 #include "NiParticleSystem.h"
 
 // kSelectiveUpdate, kSelectiveUpdateTransforms, kSelectiveUpdateController, kSelectiveUpdateRigid: COMMUNITY(CharmedBaryon/CommonLibSSE-NG@b93280e, MIT); NiAVObject flag bits
@@ -70,6 +72,11 @@ NiPSysModifier* NiParticleSystem::GetModifierByName(const BSFixedString& a_name)
         }
     }
     return nullptr;
+}
+
+void NiParticleSystem::Functionf99500()
+{
+    DispatchSlot39();
 }
 
 // RVA 0xf98f50, 127 bytes.

@@ -1,6 +1,12 @@
 // Code origin: declarations written for this unit from CommonLibSSE-NG names and layouts; the
 // stand-ins declare only what the compared code needs.
 // Source exposure: mixed (community declarations and the contributor-owned pack;
+// 0xf99ba0 compared function
+// 0xf99500 compared function
+// 0xf99390 compared function
+// 0xf992c0 compared function
+// 0xf99260 compared function
+// 0xf98f50 compared function
 // bases, sizes and slots are community hypotheses).
 // SPDX-License-Identifier: MIT (CommonLibSSE-NG declarations, Copyright (c) 2018 Ryan-rsm-McKenzie; full text: licenses/CommonLibSSE-NG.txt)
 // NiParticleSystem, NiParticleSystem::LoadBinary, NiParticleSystem::RegisterStreamables, NiParticleSystem::SaveBinary, NiParticleSystem::IsEqual, NiParticleSystem::UpdateDownwardPass, NiParticleSystem::UpdateSelectedDownwardPass, NiParticleSystem::SetSelectiveUpdateFlags, NiParticleSystem::~NiParticleSystem (implicit here), NiParticles::LoadBinary, NiParticles::RegisterStreamables, NiParticles::SaveBinary, NiParticles::IsEqual, NiParticles::~NiParticles, BSGeometry::SetSelectiveUpdateFlags, BSGeometry::UpdateDownwardPass, BSGeometry::UpdateSelectedDownwardPass: COMMUNITY(CharmedBaryon/CommonLibSSE-NG@b93280e, MIT)
@@ -338,6 +344,37 @@ public:
     void SetSelectiveUpdateFlags(bool& a_selectiveUpdate, bool a_selectiveUpdateTransforms, bool& a_rigid) override;  // compared: 0xf99ba0
     void UpdateDownwardPass(NiUpdateData& a_data, std::uint32_t a_arg2) override;  // compared: 0xf99a30
     void UpdateSelectedDownwardPass(NiUpdateData& a_data, std::uint32_t a_arg2) override;  // compared: 0xf99aa0
+
+    // Unk_20..Unk_38, DispatchSlot39: GUESS(low); virtual slot placeholders up to the image's slot 0x39,
+    // which the forwarding method dispatches through.
+    virtual void Unk_20();
+    virtual void Unk_21();
+    virtual void Unk_22();
+    virtual void Unk_23();
+    virtual void Unk_24();
+    virtual void Unk_25();
+    virtual void Unk_26();
+    virtual void Unk_27();
+    virtual void Unk_28();
+    virtual void Unk_29();
+    virtual void Unk_2A();
+    virtual void Unk_2B();
+    virtual void Unk_2C();
+    virtual void Unk_2D();
+    virtual void Unk_2E();
+    virtual void Unk_2F();
+    virtual void Unk_30();
+    virtual void Unk_31();
+    virtual void Unk_32();
+    virtual void Unk_33();
+    virtual void Unk_34();
+    virtual void Unk_35();
+    virtual void Unk_36();
+    virtual void Unk_37();
+    virtual void Unk_38();
+    virtual void DispatchSlot39();
+    // Functionf99500: GUESS(low); forwards through virtual slot 0x39.
+    void Functionf99500();
 
     // UpdateSystemForPass: GUESS(low); the helper both update passes call, declared only, bound by address
     void UpdateSystemForPass(NiUpdateData& a_data);
