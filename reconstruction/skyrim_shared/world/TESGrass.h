@@ -1,6 +1,9 @@
 // Source exposure: mixed (binary-analysis of the pinned image, community-headers).
+// 0x2709c0 compared function
+// 0x270970 compared function
+// 0x270940 compared function
+// 0x270920 compared function
 // SPDX-License-Identifier: MIT (CommonLibSSE-NG declarations, Copyright (c) 2018 Ryan-rsm-McKenzie; full text: licenses/CommonLibSSE-NG.txt)
-// Code origin: original; the listing and community declarations only
 // Names and slot order follow CharmedBaryon/CommonLibSSE-NG b93280e (MIT): include/RE/T/TESGrass.h and the vftables of the pinned image; the powerof3 fork (GPL-3.0) declares the same names.
 // BaseFormComponent, TESForm, TESObject, TESBoundObject, TESModel: STANDIN EXE_RTTI COMMUNITY(CharmedBaryon/CommonLibSSE-NG@b93280e, MIT);
 #pragma once
@@ -355,6 +358,8 @@ static_assert((sizeof(TESModel) == 0x28), "layout");
 // TESGrass: EXE_RTTI; class name and base from the image RTTI, 109 primary vftable slots
 // sizeof TESGrass 0x78: OBSERVED; size argument of operator delete in the deleting destructor (slot 0)
 // Other RTTI bases (not declared here; their vftable pointers lie inside the members): .?AVTESModel@@
+extern float g_grassScale;
+
 class TESGrass : public ::TESBoundObject, public ::TESModel
 {
 public:
@@ -403,10 +408,10 @@ public:
 	virtual void SetMaxSlopeDegrees();  // 58
 	// TESGrass::GetMinSlope: COMMUNITY(CharmedBaryon/CommonLibSSE-NG@b93280e, MIT); slot 89, target 0x270970
 	// community declaration: virtual float GetMinSlope() const;
-	virtual float GetMinSlope() const;  // 59
+	virtual void GetMinSlope();  // 59
 	// TESGrass::GetMaxSlope: COMMUNITY(CharmedBaryon/CommonLibSSE-NG@b93280e, MIT); slot 90, target 0x270940
 	// community declaration: virtual float GetMaxSlope() const;
-	virtual float GetMaxSlope() const;  // 5A
+	virtual void GetMaxSlope();  // 5A
 	// TESGrass::GetDistanceFromWaterLevel: COMMUNITY(CharmedBaryon/CommonLibSSE-NG@b93280e, MIT); slot 91, target 0x270910
 	// community declaration: virtual std::uint16_t GetDistanceFromWaterLevel() const;
 	virtual std::uint16_t GetDistanceFromWaterLevel() const;  // 5B
@@ -457,7 +462,7 @@ public:
 	virtual void SetUniformScaling();  // 6A
 	// TESGrass::GetFitToSlope: COMMUNITY(CharmedBaryon/CommonLibSSE-NG@b93280e, MIT); slot 107, target 0x270920
 	// community declaration: virtual bool GetFitToSlope() const;
-	virtual void GetFitToSlope();  // 6B
+	virtual bool GetFitToSlope() const;  // 6B
 	// TESGrass::SetFitToSlope: COMMUNITY(CharmedBaryon/CommonLibSSE-NG@b93280e, MIT); slot 108, target 0x270a00
 	// community declaration: virtual void SetFitToSlope(bool a_set);
 	virtual void SetFitToSlope();  // 6C
@@ -466,8 +471,8 @@ public:
 	struct GRASS_DATA
 	{
 		std::int8_t   density;                 // 00
-		std::uint8_t  minSlopeDegrees;         // 01
-		std::uint8_t  maxSlopeDegrees;         // 02
+		std::int8_t   minSlopeDegrees;         // 01
+		std::int8_t   maxSlopeDegrees;         // 02
 		std::uint8_t  pad03;                   // 03
 		std::uint16_t distanceFromWaterLevel;  // 04
 		std::uint16_t pad06;                   // 06
@@ -483,5 +488,8 @@ public:
 
 	// data: COMMUNITY(CharmedBaryon/CommonLibSSE-NG@b93280e, MIT) OBSERVED; at 0x58 (density, slopes, distance, underwater)
 	GRASS_DATA data;  // 58
+    float Function270940() const;  // compared: 0x270940
+    float Function270970() const;  // compared: 0x270970
+    bool Function2709c0() const;  // compared: 0x2709c0
 };
 static_assert((sizeof(TESGrass) == 0x78), "layout");

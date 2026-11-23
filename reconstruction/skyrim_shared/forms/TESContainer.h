@@ -1,4 +1,6 @@
 // Source exposure: mixed (binary-analysis of the pinned image, community-headers).
+// 0x1e0a00 compared function
+// 0x1e09f0 compared function
 // SPDX-License-Identifier: MIT (CommonLibSSE-NG declarations, Copyright (c) 2018 Ryan-rsm-McKenzie; full text: licenses/CommonLibSSE-NG.txt)
 // BaseFormComponent: STANDIN EXE_RTTI COMMUNITY(CharmedBaryon/CommonLibSSE-NG@b93280e, MIT); only class names, base chain,
 // slot order and sizes are claimed.
@@ -56,6 +58,9 @@ public:
 
 	// GetItemCount: COMMUNITY(meh321/AddressLibraryDatabase@0379cb6, permission); signature derived from the listing
 	std::int32_t GetItemCount(TESBoundObject* a_object) const;
+	// TESContainer::Function1e09f0: GUESS(low); sets allowStolenItems
+	void Function1e09f0(bool a_value);
+	bool Function1e0a00() const;
 
 	// containerObjects: COMMUNITY(CharmedBaryon/CommonLibSSE-NG@b93280e, MIT)
 	ContainerObject** containerObjects;  // 08

@@ -1,17 +1,10 @@
-// Source exposure: mixed. Drafted by claude-sonnet-5-5 from local instruction listings of the
-// pinned image, with the class layout from the header beside this file. Names are from
-// CharmedBaryon/CommonLibSSE-NG b93280e (MIT); the powerof3 fork (GPL-3.0) uses the same ones.
-// 0x2709b0 TESGrass::GetUnderwaterState
-// 0x270a30 TESGrass::SetUnderwaterState
-// 0x270900 TESGrass::GetDensity
-// 0x270910 TESGrass::GetDistanceFromWaterLevel
-// 0x270960 TESGrass::GetMaxSlopeDegrees
-// 0x270990 TESGrass::GetMinSlopeDegrees
-// 0x270890 TESGrass::~TESGrass
+// Source exposure: mixed (community headers; the pinned image listing).
+// 0x2709c0 compared function
+// 0x270970 compared function
+// 0x270940 compared function
 // Code origin: original; the listing and community declarations only
 // SPDX-License-Identifier: CC0-1.0
-// 0x270940 TESGrass::GetMaxSlope
-// 0x270970 TESGrass::GetMinSlope
+// 0x270920 TESGrass::GetFitToSlope
 // Adapted bodies: none
 #include "TESGrass.h"
 
@@ -71,15 +64,30 @@ void TESGrass::SetUnderwaterState(GRASS_WATER_STATE a_waterState)
     data.underwater = a_waterState;
 }
 
-// kDegreesToRadians: GUESS(low); the image multiplies the slope byte by the float pi / 180
-static const float kDegreesToRadians = 0.017453292f;
-
-float TESGrass::GetMinSlope() const
+bool TESGrass::GetFitToSlope() const
 {
-    return data.minSlopeDegrees * kDegreesToRadians;
+    // The trailing xor keeps the shift 32-bit, preserving the sign-extended byte load.
+    return ((static_cast<unsigned>(static_cast<std::int8_t>(data.unk18[4])) >> 2) & 1u) ^ 0u;
 }
 
-float TESGrass::GetMaxSlope() const
+float TESGrass::Function270940() const
 {
-    return data.maxSlopeDegrees * kDegreesToRadians;
+    std::uint8_t v = *reinterpret_cast<const std::uint8_t*>(reinterpret_cast<const char*>(this) + 0x5A);
+    return static_cast<float>(v) * g_grassScale;
+}
+
+float TESGrass::Function270970() const
+{
+    std::uint8_t v = *reinterpret_cast<const std::uint8_t*>(reinterpret_cast<const char*>(this) + 0x59);
+    return static_cast<float>(v) * g_grassScale;
+}
+
+bool TESGrass::Function2709c0() const
+{
+    const volatile std::int8_t& raw = *reinterpret_cast<const volatile std::int8_t*>(
+        reinterpret_cast<const char*>(this) + 0x74);
+    std::int32_t v = raw;
+    std::uint32_t shifted = static_cast<std::uint32_t>(v) >> 1;
+    __assume((shifted & 1u) <= 1u);
+    return (shifted & 1u) != 0;
 }

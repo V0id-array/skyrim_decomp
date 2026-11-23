@@ -1,26 +1,31 @@
-// Source exposure: mixed (community headers and pinned-image analysis).
-// Code origin: existing sibling-adapted LoadGame and original reconstruction of two helpers.
-// Adapted bodies: TESLevItem::LoadGame ~ momusdigital/fnv_decomp@91e1b6e8 src/fallout_shared/teslevcharacter.cpp:19 (no-licence).
-// IsLeveledItemFormType: GUESS(low)
-// 0x272110 TESLevItem::Function272110
+// Source exposure: mixed (community headers; the pinned image listing).
+// 0x2721b0 compared function
+// 0x272130 compared function
+// 0x272110 compared function
+// Code origin: original; the listing and community declarations only
+// SPDX-License-Identifier: CC0-1.0
 // 0x272120 TESLevItem::Function272120
-// 0x272170 TESLevItem::LoadGame
+// Adapted bodies: SKELETON_TODO_ORIGIN (write "none" when attempt prints no "origin advice" line;
+// otherwise name each adapted body, its upstream file, revision and licence).
+// Source exposure: mixed (names and declarations from community headers; the listing of the pinned
+// image).
+// Adapted bodies: none
 #include "TESLevItem.h"
 
-bool IsLeveledItemFormType(std::uint8_t a_formType);
-
-std::uint32_t TESLevItem::Function272110() const
-{
-    return g_levItem207ACE8;
-}
-
-bool TESLevItem::Function272120(std::uint8_t a_formType) const
-{
-    return IsLeveledItemFormType(a_formType);
-}
-
+// TODO body: RVA 0x272170, 43 bytes, TESLevItem::LoadGame.
 void TESLevItem::LoadGame(BGSLoadFormBuffer* a_buf)
 {
     TESForm::LoadGame(a_buf);
     return leveledList.LoadGame(a_buf);
+}
+
+// TESLevItem::Function272120: GUESS(low)
+void TESLevItem::Function272120(std::uint8_t a_value)
+{
+    return ForwardLevItemByte(a_value);
+}
+
+std::uint32_t TESLevItem::Function272110()
+{
+    return g_levItemValue;
 }

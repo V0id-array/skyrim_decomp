@@ -1,4 +1,6 @@
 // Source exposure: mixed (names and declarations from community headers; base classes, sizes and
+// 0x271830 compared function
+// 0x271820 compared function
 // SPDX-License-Identifier: MIT (CommonLibSSE-NG declarations, Copyright (c) 2018 Ryan-rsm-McKenzie; full text: licenses/CommonLibSSE-NG.txt)
 // TESLevCharacter: COMMUNITY(CharmedBaryon/CommonLibSSE-NG@b93280e, MIT) EXE_RTTI
 // TESObject, TESBoundObject, TESBoundAnimObject: STANDIN EXE_RTTI
@@ -12,6 +14,7 @@
 #include "TESForm.h"
 
 class TESLevCharacter;
+extern std::uint32_t g_levCharValue;
 
 // Callees of InitItemImpl; declared, not defined here.
 void InitLeveledListState(void* a_list, TESLevCharacter* a_owner);
@@ -43,6 +46,9 @@ class TESLevCharacter : public TESBoundAnimObject
 {
 public:
     virtual void InitItemImpl();  // compared: 0x2717b0
+    // TESLevCharacter::Function271830: GUESS(low); tests one byte value against two consecutive codes
+    std::uint32_t Function271820() const;  // compared: 0x271820
+    bool Function271830(std::uint8_t a_value) const;
 
     std::uint8_t unknown20[0x10];  // 20
     std::uint8_t unknown30[0x28];  // 30
