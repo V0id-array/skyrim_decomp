@@ -1,6 +1,12 @@
 // Source exposure: mixed (names and declarations from community headers; base classes, sizes and
+// 0x1541630 compared function
+// 0x1541210 compared function
+// 0x15411e0 compared function
+// 0x15410e0 compared function
+// 0x15410b0 compared function
+// 0x1540fa0 compared function
+// 0x150ac20 compared function
 // the compared functions from the pinned image).
-// Code origin: Written for this reconstruction from the listing; ImageSpaceRange layout is a guess from the stores, and the range pair is written as one 64-bit store.
 // SPDX-License-Identifier: MIT (CommonLibSSE-NG declarations, Copyright (c) 2018 Ryan-rsm-McKenzie; full text: licenses/CommonLibSSE-NG.txt)
 // Declarations derived from powerof3/CommonLibSSE are GPL-3.0 (its licence).
 // BSImagespaceShader: COMMUNITY(CharmedBaryon/CommonLibSSE-NG@b93280e, MIT) EXE_RTTI
@@ -15,7 +21,6 @@
 // SubRegionTarget, SubRegionTarget::Dispatch, CopySubRegionRequest, SubRegion, CopySubRegionToTarget: GUESS(low)
 // Renderer, g_renderer, Renderer::SetFlagA, Renderer::SetFlagB, Renderer::SetFlagC, Renderer::SetFlagD, Renderer::SetFlagE, Renderer::SetFlagF, Renderer::CopyBytes: GUESS(low)
 // g_shadowFlags, g_shadowModeA, g_shadowModeB, g_shadowSlotB, g_shadowDirtyB: GUESS(low); the globals are bound by the unit's bind-hints.json
-// ImageSpaceRange: GUESS(low); layout inferred from the stores of Function15410e0
 #pragma once
 
 #include <cstdint>
@@ -24,19 +29,6 @@
 class ImageSpaceEffectParam;
 class ImageSpaceManager;
 class ImageSpaceSlot;
-
-struct ImageSpaceRange
-{
-    void* value;                    // 00
-    bool enabled;                   // 08
-    std::uint8_t unknown09[3];      // 09
-    struct Range
-    {
-        std::uint32_t first;
-        std::uint32_t second;
-    } range;                        // 0c
-};
-static_assert(offsetof(ImageSpaceRange, range) == 0xC, "ImageSpaceRange range offset");
 
 class NiRefObject
 {
@@ -77,8 +69,7 @@ public:
     virtual void Slot06();
     virtual void Slot07();
     virtual void Slot08();
-    // Slot09: GUESS(low); takes one 32-bit argument (0x15411e0 passes 0)
-    virtual void Slot09(std::uint32_t a_arg);
+    virtual void Slot09();
     virtual void Slot10();
     virtual void Slot11();
     virtual void Dispatch(std::uint32_t a_groupsX, std::uint32_t a_groupsY, std::uint32_t a_groupsZ);
@@ -128,6 +119,8 @@ public:
     // Unk_0A, Unk_0B: COMMUNITY(CharmedBaryon/CommonLibSSE-NG@b93280e, MIT); slots the listings call on this
     virtual void Unk_0A();
     virtual void Unk_0B();
+    // BSImagespaceShader::Function1541630: GUESS(low); installs two pointers and a flag, returns this
+    BSImagespaceShader* Function1541630(void* a_arg1, void* a_arg2);
 
     bool ResetRenderStates();
     // IsReady: GUESS(low); non-virtual member Setup calls with three zero arguments (0x1579120)
@@ -135,8 +128,6 @@ public:
 
     // The first qword of the request is a target object, not a vtable, so this stays a static function.
     static std::uint32_t DispatchCopySubRegion(struct CopySubRegionRequest* a_request);  // compared: 0x1540db0
-    // ResetSubRegionTarget: GUESS(low); calls slot 9 of the request's target with 0
-    static void ResetSubRegionTarget(struct CopySubRegionRequest* a_request);
 
     std::uint8_t unknown90[0x48];  // 90
     // m_slots: GUESS(low)
@@ -151,10 +142,6 @@ public:
     // m_statesDirty: GUESS(low)
     bool m_statesDirty;            // 1a1
     std::uint8_t unknown1A2[0x6];  // 1a2
-public:
-    std::uint64_t* GetShaderMacros(std::uint64_t* a_out);
-public:
-    static ImageSpaceRange* Function15410e0(ImageSpaceRange* a_result, void* a_value);
 };
 static_assert(sizeof(BSImagespaceShader) == 0x1A8, "BSImagespaceShader size");
 
@@ -189,3 +176,32 @@ struct CopySubRegionRequest
 };
 
 void CopySubRegionToTarget(SubRegionTarget* a_target, const SubRegion* a_rect);
+
+// GUESS(low); stand-in holders written by the compared leaves.
+struct ImagespaceHolder
+{
+    void* pointer;      // 00
+    std::uint8_t byte;  // 08
+    std::uint8_t pad[3];
+    std::uint64_t qword;  // 0C
+};
+struct ImagespaceHolderWide
+{
+    void* pointer;      // 00
+    void* pointer8;     // 08
+    void* pointer10;    // 10
+    std::uint32_t dword18;  // 18
+};
+struct ImagespaceHolderFlag
+{
+    void* pointer;      // 00
+    void* pointer8;     // 08
+    std::uint8_t flag10; // 10
+};
+
+void* Function1540fa0(void* a_dst, void* a_value);
+void Function15410b0(ImagespaceHolder* a_holder);
+void* Function15410e0(void* a_dst, void* a_value);
+void Function15411e0(ImagespaceHolder* a_holder);
+void* Function1541210(void* a_dst, void* a_a, void* a_b, void* a_c);
+BSImagespaceShader* Function1541630Impl(void* a_dst, void* a_a, void* a_b);

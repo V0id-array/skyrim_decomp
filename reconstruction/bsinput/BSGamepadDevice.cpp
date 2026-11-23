@@ -1,18 +1,29 @@
 // Source exposure: mixed (community headers; the pinned image listing).
-// Code origin: written for this reconstruction from the listing; names from the header.
-// SPDX-License-Identifier: MIT (CommonLibSSE-NG declarations, Copyright (c) 2018 Ryan-rsm-McKenzie; full text: licenses/CommonLibSSE-NG.txt)
-// 0xcfc150 BSGamepadDevice::IsEnabled
+// 0xcfc150 compared function
+// Code origin: original; the listing and community declarations only
+// SPDX-License-Identifier: CC0-1.0
+// 0xcfbd80 BSGamepadDevice::Functioncfbd80
 // Adapted bodies: none
-// 0xcfbde0 Unk_0E
-// 0xcfc180 BSGamepadDevice::Unk_0C
-// 0xcfc1a0 ResetLEDColor
-// Drafted by v-macrev, assisted by claude-haiku-5-5.
+// Source exposure: mixed (names and declarations from community headers; the listing of the pinned
+// image).
+// Adapted bodies: none (write "none" when attempt prints no "origin advice" line;
+// otherwise name each adapted body, its upstream file, revision and licence).
 #include "BSGamepadDevice.h"
 
-// RVA 0xcfc150, 24 bytes
-bool BSGamepadDevice::IsEnabled()
+bool BSGamepadDevice::IsEnabled() const
 {
-    return enabledCC && unknownC8 != -1;
+    const std::uint8_t* self = reinterpret_cast<const std::uint8_t*>(this);
+    const std::uint8_t flag = *reinterpret_cast<const std::uint8_t*>(self + 0xCC);
+    const std::uint32_t index = *reinterpret_cast<const std::uint32_t*>(self + 0xC8);
+    if (flag == 0 || index == 0xFFFFFFFF) {
+        return false;
+    }
+    return true;
+}
+
+float BSGamepadDevice::Functioncfbd80(float a_a, float a_b, float a_c, float a_d, float a_e)
+{
+    return a_a + ((a_e - a_c) / (a_d - a_c)) * (a_b - a_a);
 }
 
 // RVA 0xcfbde0, 3 bytes
