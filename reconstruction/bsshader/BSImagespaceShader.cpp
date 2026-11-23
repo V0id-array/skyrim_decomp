@@ -1,25 +1,74 @@
+// Source exposure: mixed (community headers; the pinned image listing).
+// 0x1541210 compared function
+// 0x15411e0 compared function
+// 0x15410e0 compared function
+// 0x15410b0 compared function
+// 0x1540fa0 compared function
+// 0x150ac20 compared function
+// Code origin: original; the listing and community declarations only
+// SPDX-License-Identifier: CC0-1.0
+// 0x1541630 BSImagespaceShader::Function1541630
+// Adapted bodies: none
 // Source exposure: mixed (names and declarations from community headers; the listing of the pinned
 // image).
-// Code origin: written for this reconstruction from the listing; ImageSpaceRange range pair is written as one 64-bit store.
+// Code origin: bodies written from the local listings; names and declarations follow CommonLibSSE-NG.
 // Declarations derived from powerof3/CommonLibSSE are GPL-3.0 (its licence).
 // Adapted bodies: none
-// 0x15651e0 BSImagespaceShader::Unk_0D
-// 0x1564df0 BSImagespaceShader::RestoreRenderStates
-// 0x1564d90 BSImagespaceShader::UpdateParams
-// 0x1565170 BSImagespaceShader::Unk_0C
-// 0x1564a00 BSImagespaceShader::ShutDown
-// 0x1564960 BSImagespaceShader::Setup
-// 0x1540db0 BSImagespaceShader::DispatchCopySubRegion
-// 0x15411e0 BSImagespaceShader::ResetSubRegionTarget
-// ResetSubRegionTarget: GUESS(low)
-// ISShaderInitA, ISShaderInitB, ISShaderInitA::Initialize, ISShaderInitB::Initialize: STANDIN GUESS(low); the two compared initialisers write a tiny object that is not a BSImagespaceShader
-// SPDX-License-Identifier: CC0-1.0
-// 0x1541630 ISShaderInitA::Initialize
-// 0x15410e0 ISShaderInitB::Initialize
-// 0x150ac20 BSImagespaceShader::GetShaderMacros
-// Drafted by v-macrev, assisted by claude-sonnet-5-5.
 #include "BSImagespaceShader.h"
-#include <cstring>
+
+// Compared leaves: GUESS(low); the bodies populate a stand-in holder and return it.
+void* Function1540fa0(void* a_dst, void* a_value)
+{
+    ImagespaceHolder* h = reinterpret_cast<ImagespaceHolder*>(a_dst);
+    h->pointer = a_value;
+    void* result = a_dst;
+    h->byte = 0;
+    return result;
+}
+
+void Function15410b0(ImagespaceHolder* a_holder)
+{
+    ImagespaceHolder* inner = reinterpret_cast<ImagespaceHolder*>(a_holder->pointer);
+    void** vtable = *reinterpret_cast<void***>(inner);
+    auto fn = reinterpret_cast<void(__fastcall*)(ImagespaceHolder*, void*)>(vtable[9]);
+    fn(inner, nullptr);
+}
+
+void* Function15410e0(void* a_dst, void* a_value)
+{
+    ImagespaceHolder* h = reinterpret_cast<ImagespaceHolder*>(a_dst);
+    h->pointer = a_value;
+    void* result = a_dst;
+    h->byte = 1;
+    *reinterpret_cast<std::uint64_t*>(reinterpret_cast<char*>(a_dst) + 0xC) = static_cast<std::uint64_t>(-1);
+    return result;
+}
+
+void Function15411e0(ImagespaceHolder* a_holder)
+{
+    Function15410b0(a_holder);
+}
+
+void* Function1541210(void* a_dst, void* a_a, void* a_b, void* a_c)
+{
+    ImagespaceHolderWide* h = reinterpret_cast<ImagespaceHolderWide*>(a_dst);
+    h->pointer = a_a;
+    void* result = a_dst;
+    h->pointer8 = a_b;
+    h->pointer10 = a_c;
+    h->dword18 = 0;
+    return result;
+}
+
+BSImagespaceShader* Function1541630Impl(void* a_dst, void* a_a, void* a_b)
+{
+    ImagespaceHolderFlag* h = reinterpret_cast<ImagespaceHolderFlag*>(a_dst);
+    h->pointer = a_a;
+    BSImagespaceShader* result = reinterpret_cast<BSImagespaceShader*>(a_dst);
+    h->pointer8 = a_b;
+    h->flag10 = 1;
+    return result;
+}
 
 // RVA 0x150b490, 3 bytes: an empty slot body.
 void BSImagespaceShader::Unk_0B()
@@ -139,62 +188,11 @@ bool BSImagespaceShader::Setup(ImageSpaceManager*, ImageSpaceEffectParam*)
     return ready;
 }
 
-
-void BSImagespaceShader::ResetSubRegionTarget(CopySubRegionRequest* a_request)
+// BSImagespaceShader::Function1541630: GUESS(low)
+BSImagespaceShader* BSImagespaceShader::Function1541630(void* a_arg1, void* a_arg2)
 {
-    a_request->target->Slot09(0);
-}
-
-// ISShaderInitA: STANDIN GUESS(low); file-local shape of the 0x1541630 object.
-struct ISShaderInitA
-{
-    void* p0;    // 00
-    void* p1;    // 08
-    bool flag;   // 10
-
-    static ISShaderInitA* Initialize(ISShaderInitA* a_self, void* a_p0, void* a_p1);
-};
-
-// ISShaderInitB: STANDIN GUESS(low); file-local shape of the 0x15410e0 object.
-struct ISShaderInitB
-{
-    void* p0;                 // 00
-    bool flag;                // 08
-    std::uint8_t tail[0xB];   // 09
-
-    static ISShaderInitB* Initialize(ISShaderInitB* a_self, void* a_p0);
-};
-
-// RVA 0x1541630, 15 bytes: stores the two pointers, sets the flag and returns the object.
-ISShaderInitA* ISShaderInitA::Initialize(ISShaderInitA* a_self, void* a_p0, void* a_p1)
-{
-    a_self->p0 = a_p0;
-    a_self->p1 = a_p1;
-    a_self->flag = true;
-    return a_self;
-}
-
-// RVA 0x15410e0, 19 bytes: stores the pointer, sets the flag, stores -1 at +0xc and returns the object.
-ISShaderInitB* ISShaderInitB::Initialize(ISShaderInitB* a_self, void* a_p0)
-{
-    a_self->p0 = a_p0;
-    a_self->flag = true;
-    *reinterpret_cast<long long*>(reinterpret_cast<char*>(a_self) + 0xc) = -1;
-    return a_self;
-}
-
-std::uint64_t* BSImagespaceShader::GetShaderMacros(std::uint64_t* a_out)
-{
-    *a_out = 0;
-    a_out[1] = 0;
-    return a_out;
-}
-
-ImageSpaceRange* BSImagespaceShader::Function15410e0(ImageSpaceRange* a_result, void* a_value)
-{
-    a_result->value = a_value;
-    a_result->enabled = true;
-    // both halves of the range are set to -1 with a single 64-bit store
-    *reinterpret_cast<long long*>(&a_result->range) = -1;
-    return a_result;
+    *reinterpret_cast<void**>(this) = a_arg1;
+    *reinterpret_cast<void**>(reinterpret_cast<char*>(this) + 8) = a_arg2;
+    *reinterpret_cast<bool*>(reinterpret_cast<char*>(this) + 0x10) = true;
+    return this;
 }

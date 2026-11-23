@@ -1,54 +1,60 @@
-// Source exposure: mixed (pinned image listing and community names).
-// Code origin: existing leaf plus original reconstruction of Function5d88c0.
+// Source exposure: mixed (local binary analysis and public names).
+// 0x5db6e0 compared function
+// 0x5d88e0 compared function
+// 0x5d88c0 compared function
+// Origin: {"generator_family":"const-return","generator_version":"2","name_source":{"confidence":"medium","kind":"public","repository":"CharmedBaryon/CommonLibSSE-NG","revision":"b93280e832f263dbef44e44cbe2936622a02f91a","source":"ng-slot"},"template_digest":"df32415c55896040a11705484c0f0da5801925ec042c4cc3a23c954179756459"}
+// Adapted bodies: none. Body synthesized from the bounded leaf template.
+// ReferenceEffect: EXE_RTTI
+// GetAttached: COMMUNITY(CharmedBaryon/CommonLibSSE-NG@b93280e, MIT)
+// member, padding: GUESS(low); storage names invented for the measured member offset
 // SPDX-License-Identifier: MIT (CommonLibSSE-NG declarations, Copyright (c) 2018 Ryan-rsm-McKenzie; full text: licenses/CommonLibSSE-NG.txt)
-// ReferenceEffect, GetAttached, ReferenceEffectController, controller: COMMUNITY(CharmedBaryon/CommonLibSSE-NG@b93280e, MIT) EXE_RTTI
-// Function5d88c0, unknown08: GUESS(low)
-// ReferenceEffect::CheckAge, finished, lifetime, age: CRASHLOGGER_PDB(59818@2026.10.24)
 #pragma once
 #include <cstdint>
-
-class ReferenceEffectController
+// GetAttached: COMMUNITY(CharmedBaryon/CommonLibSSE-NG@b93280e, MIT)
+// EffectTarget: GUESS(low) STANDIN; virtual slot holder for the compared tail call.
+class EffectTarget
 {
 public:
-    virtual void Slot00();
-    virtual void Slot01();
-    virtual void Slot02();
-    virtual void Slot03();
-    virtual void Slot04();
-    virtual void Slot05();
-    virtual void Slot06();
-    virtual void Slot07();
-    virtual void Slot08();
-    virtual void Slot09();
-    virtual void Slot0A();
-    virtual void Slot0B();
-    virtual void Slot0C();
-    virtual void Slot0D();
-    virtual void Slot0E();
-    virtual void Slot0F();
-    virtual void Slot10();
-    virtual void Slot11();
-    virtual void Slot12();
-    virtual void Slot13();
-    virtual void Slot14();
-    virtual void Slot15();
-    virtual bool Slot16();
+    virtual void PadSlot00();
+    virtual void PadSlot01();
+    virtual void PadSlot02();
+    virtual void PadSlot03();
+    virtual void PadSlot04();
+    virtual void PadSlot05();
+    virtual void PadSlot06();
+    virtual void PadSlot07();
+    virtual void PadSlot08();
+    virtual void PadSlot09();
+    virtual void PadSlot10();
+    virtual void PadSlot11();
+    virtual void PadSlot12();
+    virtual void PadSlot13();
+    virtual bool PadSlot14();
+    virtual void PadSlot15();
+    virtual void PadSlot16();
+    virtual void PadSlot17();
+    virtual void PadSlot18();
+    virtual void PadSlot19();
+    virtual void PadSlot20();
+    virtual void PadSlot21();
+    virtual bool TargetMethod();
 };
 
 class ReferenceEffect
 {
 public:
     virtual std::uint8_t GetAttached() const;
+    // ReferenceEffect::Function5d88c0: GUESS(low); compared at RVA 0x5d88c0
     bool Function5d88c0();
+    bool Function5d88e0();
+    bool Function5db6e0() const;
 
-    bool CheckAge() const;
-
-    std::uint8_t unknown08[8];
-    float lifetime;
-    std::uint8_t unknown14[12];
-    float age;
-    std::uint8_t unknown24[12];
-    ReferenceEffectController* controller;
-    std::uint8_t unknown38[8];
-    bool finished;
+    std::uint8_t pad08[0x8];   // 08
+    float        value10;      // 10
+    std::uint8_t pad14[0xC];   // 14
+    float        value20;      // 20
+    std::uint8_t pad24[0xC];   // 24
+    EffectTarget* target;      // 30
+    std::uint8_t pad38[0x8];   // 38
+    std::uint8_t flag40;       // 40
 };
